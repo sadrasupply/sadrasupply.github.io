@@ -11,7 +11,7 @@ cd "$(dirname "$0")"
 found=0
 for f in "$HOME"/Downloads/tiktok*.txt; do
   [ -e "$f" ] || continue
-  cp "$f" . && echo "  staged $(basename "$f")" && found=1
+  cp "$f" . && cp "$f" tiktok-app-policies/ && echo "  staged $(basename "$f")" && found=1
 done
 [ "$found" = 0 ] && { echo "No tiktok*.txt in ~/Downloads."; exit 1; }
 git add -A
@@ -20,7 +20,7 @@ git -c user.email="sadramohajer@gmail.com" -c user.name="Sadra Mohajer" \
 git push -q origin main
 echo "  pushed — waiting for GitHub Pages…"
 for f in tiktok*.txt; do
-  url="https://sadrasupply.github.io/$f"
+  url="https://sadrasupply.github.io/tiktok-app-policies/$f"
   for i in $(seq 1 24); do
     sleep 10
     code=$(curl -s -o /dev/null -w "%{http_code}" "$url")
